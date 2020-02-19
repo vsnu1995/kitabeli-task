@@ -30,32 +30,4 @@ public class CategoryController {
         // This returns a JSON or XML with the users
         return CategoryMapper.MAPPER.toCategoryDTOs(categoryRepository.findAll());
     }
-
-    @PutMapping(path="/updateDiscount")
-    public @ResponseBody String randomlyAddDiscount(@RequestBody String passkey) {
-        if ("saflnaelfalwflwaouh2398iv298zck!123".equals(passkey)){
-
-            final List<Integer> categoryIds = categoryRepository.fetchCategoryIds();
-            Random rand = new Random();
-            LocalDateTime dt = LocalDateTime.now().plusDays(1);
-
-            categoryIds.forEach(id -> {
-                List<Integer> itemIds = itemRepository.fetchIdsByCategoryId(id);
-
-                Integer idToUpdate = itemIds.get(rand.nextInt(itemIds.size()));
-
-                Optional<Item> item = itemRepository.findById(idToUpdate);
-
-                if(item.isPresent()){
-                    Item item1 = item.get();
-                    item1.setDiscount(10);
-                    item1.setDiscountExpiry(dt);
-                    itemRepository.save(item1);
-                }
-            });
-            return "success";
-        } else {
-            return "failure";
-        }
-    }
 }
