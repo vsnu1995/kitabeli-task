@@ -3,15 +3,10 @@ package com.vsnu.market.tasks;
 import com.vsnu.market.entities.Item;
 import com.vsnu.market.repositories.CategoryRepository;
 import com.vsnu.market.repositories.ItemRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -24,7 +19,7 @@ public class ScheduledTasks {
     @Autowired
     private ItemRepository itemRepository;
 
-    @Scheduled(cron = "0 0 * * *") //Run everyday at 00:00
+    @Scheduled(cron = "0 0 0 * * *") //Run everyday at 00:00
     public void putDiscountToRandomItem() {
         final List<Integer> categoryIds = categoryRepository.fetchCategoryIds();
         Random rand = new Random();
